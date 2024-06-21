@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {MultGameComponent} from "./mult-game/mult-game.component";
+import {EndGameComponent} from "./mult-game/end-game/end-game.component";
 
 @Component({
   selector: 'app-math',
@@ -9,7 +10,8 @@ import {MultGameComponent} from "./mult-game/mult-game.component";
   imports: [
     FormsModule,
     NgIf,
-    MultGameComponent
+    MultGameComponent,
+    EndGameComponent
   ],
   templateUrl: './math.component.html',
   styleUrl: './math.component.css'
@@ -19,6 +21,8 @@ export class MathComponent {
   from: number = 1
   before: number = 1
   playGame: boolean = false
+  showEndGame = false
+  resultGame!: [{}]
 
   start() {
     this.playGame = true
@@ -26,5 +30,9 @@ export class MathComponent {
   }
   end() {
     this.playGame = false
+    this.showEndGame = true
+  }
+  closeEndGame() {
+    this.showEndGame = false
   }
 }

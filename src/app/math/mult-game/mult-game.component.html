@@ -1,16 +1,34 @@
-<div class="field">
-  <p>Осталось примеров: {{quantityAnswers}}</p>
-  <p>Верно: {{correctAnswer}}</p>
-  <p>Неверно {{wrongAnswer}}</p>
-  <span> {{multiplierFirst}} x {{multiplierSecond}} = </span>
+<div class="backdrop">
+  <div class="field">
+    <p>Осталось примеров: {{ quantityAnswers }}</p>
+    <p>Верно: {{ correctAnswer }}</p>
+    <p>Неверно {{ wrongAnswer }}</p>
+    <span> {{ multiplierFirst }} x {{ multiplierSecond }} = </span>
 
-  <input
-    type="number"
-    [(ngModel)]="studentResponse"
-  >
+    <input
+      id="answer"
+      type="number"
+      [(ngModel)]="studentResponse"
+      autofocus
+    >
 
-  <button
-    (click)="next()"
-    (keydown.enter)="next()"
-  >Next</button>
+    <button
+      (click)="checkResult()"
+    >Проверить результат
+    </button>
+    <hr>
+    <div>
+      <button
+        (click)="this.endGame.emit()"
+      >Закончить
+      </button>
+    </div>
+  </div>
 </div>
+
+<app-result
+
+  (nextExample)="next()"
+  [response]="response"
+  *ngIf="showCheckResult"
+></app-result>

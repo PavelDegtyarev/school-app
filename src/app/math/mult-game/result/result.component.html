@@ -1,0 +1,8 @@
+<div class="backdrop">
+  <div class="field">
+    <p *ngIf="response.right" style="background-color: #00f800;">Верно</p>
+    <p *ngIf="!response.right" style="background-color: #ff0000;">Неверно</p>
+    <p>{{response.text}}</p>
+    <button (click)="next()">Следующий пример</button>
+  </div>
+</div>

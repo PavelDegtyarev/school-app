@@ -1,11 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormsModule} from "@angular/forms";
+import {ResultComponent} from "./result/result.component";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-mult-game',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    ResultComponent,
+    NgIf
   ],
   templateUrl: './mult-game.component.html',
   styleUrl: './mult-game.component.css'
@@ -22,6 +26,8 @@ export class MultGameComponent implements OnInit{
   correctAnswer = 0
   wrongAnswer = 0
   studentResponse!: number | null
+  showCheckResult = false
+  response = {text: '', right: true}
 
   ngOnInit() {
     this.generateMultiplierFirst()
@@ -40,19 +46,29 @@ export class MultGameComponent implements OnInit{
     this.multiplierSecond = Math.floor(Math.random() * (max - min + 1) + min)
   }
 
-
-  next() {
-    if (this.quantityAnswers === 1) {
-      this.endGame.emit()
-
-    }
+  checkResult() {
     this.quantityAnswers --
+
     if (this.multiplierFirst * this.multiplierSecond === this.studentResponse) {
       this.correctAnswer ++
+      this.response.right = true
     } else {
       this.wrongAnswer ++
+      this.response.right = false
     }
-    this.studentResponse = null
+    this.response.text = `${this.multiplierFirst} x ${this.multiplierSecond} = ${this.multiplierFirst * this.multiplierSecond}`
+    this.showCheckResult = true
+
+
+  }
+
+  next() {
+    this.showCheckResult = false
+
+    if (this.quantityAnswers === 0) {
+      this.endGame.emit()
+    }
+   this.studentResponse = null
     this.generateMultiplierFirst()
     this.generateMultiplierSecond()
   }
