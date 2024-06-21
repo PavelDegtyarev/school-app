@@ -1,0 +1,16 @@
+<div class="field">
+  <p>Осталось примеров: {{quantityAnswers}}</p>
+  <p>Верно: {{correctAnswer}}</p>
+  <p>Неверно {{wrongAnswer}}</p>
+  <span> {{multiplierFirst}} x {{multiplierSecond}} = </span>
+
+  <input
+    type="number"
+    [(ngModel)]="studentResponse"
+  >
+
+  <button
+    (click)="next()"
+    (keydown.enter)="next()"
+  >Next</button>
+</div>
