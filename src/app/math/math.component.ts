@@ -22,7 +22,6 @@ export class MathComponent {
   before: number = 1
   playGame: boolean = false
   showEndGame = false
-  resultGame!: [{}]
 
   start() {
     this.playGame = true

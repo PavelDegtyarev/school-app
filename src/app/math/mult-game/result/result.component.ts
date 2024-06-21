@@ -12,6 +12,7 @@ import {NgIf} from "@angular/common";
 })
 export class ResultComponent {
   @Input() response!: {text: string, right: boolean}
+
   @Output() nextExample = new EventEmitter()
   next() {
     this.nextExample.emit()

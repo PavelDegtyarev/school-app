@@ -9,7 +9,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class EndGameComponent {
   @Output() closeEndGame = new EventEmitter()
-  @Input() resultGame = []
   close() {
     this.closeEndGame.emit()
   }
