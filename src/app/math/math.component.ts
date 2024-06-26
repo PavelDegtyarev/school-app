@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import {FormsModule} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {MultGameComponent} from "./mult-game/mult-game.component";
-import {EndGameComponent} from "./mult-game/end-game/end-game.component";
+import {EndGameComponent} from "./end-game/end-game.component";
+import {MathService} from "../services/math-service.service";
 
 @Component({
   selector: 'app-math',
@@ -11,21 +12,33 @@ import {EndGameComponent} from "./mult-game/end-game/end-game.component";
     FormsModule,
     NgIf,
     MultGameComponent,
-    EndGameComponent
+    EndGameComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './math.component.html',
-  styleUrl: './math.component.css'
+  styleUrl: './math.component.css',
+  providers: [MathService]
 })
-export class MathComponent {
-  multiply: boolean = false
-  from: number = 1
-  before: number = 1
+export class MathComponent implements OnInit{
+  // operation: string = ''
+  // from: number = 1
+  // before: number = 1
   playGame: boolean = false
-  showEndGame = false
+  showEndGame: boolean = false
+  formData!: {from: number, before: number, operation: string}
+  form!: FormGroup
 
+  ngOnInit() {
+    this.form = new FormGroup({
+      from: new FormControl('1'),
+      before: new FormControl('1'),
+      operation: new FormControl('multiply')
+    })
+  }
   start() {
     this.playGame = true
-    console.log(this.multiply, this.from, this.before)
+    this.formData = {...this.form.value}
+    console.log(this.formData)
   }
   end() {
     this.playGame = false

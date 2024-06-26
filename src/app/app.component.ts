@@ -7,7 +7,7 @@ import {MathComponent} from "./math/math.component";
   standalone: true,
   imports: [RouterOutlet, MathComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
 

@@ -1,45 +1,87 @@
 <div class="container">
-
-
   <h3>Выбери действие</h3>
+  <form [formGroup]="form" (ngSubmit)="start()">
 
+    <div>
+      <input
+        id="multiply"
+        type="radio"
+        name="operation"
+        value="multiply"
+        formControlName="operation"
+      >
+      <label for="multiply">Умножение</label>
+    </div>
 
-  <input
-    type="checkbox"
-    name="multiply"
-    id="multiply"
-    [(ngModel)]="multiply"
-  >
-  <label for="multiply">Умножение</label>
+    <div>
+      <input
+        id="division"
+        type="radio"
+        name="operation"
+        value="division"
+        formControlName="operation"
+      >
+      <label for="division">Деление</label>
+    </div>
 
-  <div *ngIf="multiply">
-    <label for="from">От</label>
-    <input
-      type="number"
-      id="from"
-      [(ngModel)]="from"
-    >
+    <div>
+      <input
+        id="addition"
+        type="radio"
+        name="operation"
+        value="addition"
+        formControlName="operation"
+      >
+      <label for="addition">Сложение</label>
+    </div>
 
-    <label for="before">До</label>
-    <input
-      type="number"
-      id="before"
-      [(ngModel)]="before"
-    >
-  </div>
+    <div>
+      <input
+        id="subtraction"
+        type="radio"
+        name="operation"
+        value="subtraction"
+        formControlName="operation"
+      >
+      <label for="subtraction">Вычитание</label>
+    </div>
 
-  <div>
-    <button (click)="start()">Начать упражнение</button>
+    <div >
+      <div>
+        <label for="from">От</label>
+        <input
+          type="number"
+          id="from"
+          formControlName="from"
+        >
+      </div>
+      <div>
+        <label for="before">До</label>
+        <input
+          type="number"
+          id="before"
+          formControlName="before"
+        >
+      </div>
+    </div>
 
-  </div>
+    <div>
+      <button type="submit">Начать упражнение</button>
+    </div>
+  </form>
+
+  <!--  <app-mult-game-->
+  <!--    [from]="from"-->
+  <!--    [before]="before"-->
+  <!--    [operation]="operation"-->
+  <!--    (endGame)="end()"-->
+  <!--    *ngIf="playGame"-->
+  <!--  ></app-mult-game>-->
 
   <app-mult-game
-    [from]="from"
-    [before]="before"
     (endGame)="end()"
     *ngIf="playGame"
   ></app-mult-game>
-
   <app-end-game
     (closeEndGame)="closeEndGame()"
     *ngIf="showEndGame"

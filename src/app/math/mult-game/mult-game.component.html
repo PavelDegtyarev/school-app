@@ -3,32 +3,45 @@
     <p>Осталось примеров: {{ quantityAnswers }}</p>
     <p>Верно: {{ correctAnswer }}</p>
     <p>Неверно {{ wrongAnswer }}</p>
-    <span> {{ multiplierFirst }} x {{ multiplierSecond }} = </span>
+    <span> {{ example.text }} = </span>
+
 
     <input
       id="answer"
       type="number"
       [(ngModel)]="studentResponse"
-      autofocus
+
     >
 
     <button
       (click)="checkResult()"
+      [disabled]="studentResponse == null || showCheckResult"
+      *ngIf="!showCheckResult"
     >Проверить результат
     </button>
+
+    <button
+      (click)="next()"
+      *ngIf="showCheckResult"
+    >Следующий пример
+    </button>
+
     <hr>
+
     <div>
       <button
         (click)="this.endGame.emit()"
       >Закончить
       </button>
     </div>
+
+    <div *ngIf="showCheckResult">
+      <p *ngIf="response.right" style="background-color: #00f800;">Верно</p>
+      <p *ngIf="!response.right" style="background-color: #ff0000;">Неверно</p>
+      <p>{{response.text}}</p>
+
+    </div>
   </div>
 </div>
 
-<app-result
 
-  (nextExample)="next()"
-  [response]="response"
-  *ngIf="showCheckResult"
-></app-result>
