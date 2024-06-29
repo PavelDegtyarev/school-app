@@ -16,7 +16,7 @@ import {SaveResultsService} from "../services/save-results.service";
     EndGameComponent,
     ReactiveFormsModule
   ],
-  templateUrl: '../../../docs/math.component.html',
+  templateUrl: './math.component.html',
   styleUrl: './math.component.css',
   providers: [MathService, SaveResultsService]
 })
