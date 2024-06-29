@@ -1,18 +1,20 @@
 import {Injectable} from '@angular/core';
 import {MathComponent} from "../math/math.component";
+import {MultGameComponent} from "../math/mult-game/mult-game.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MathService {
 
-  constructor(public mathComponent: MathComponent) {
-  }
 
+  constructor(
+    public mathComponent: MathComponent,
+    ) {
+  }
   private generateNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
-
   getExample() {
     if (this.mathComponent.formData.operation === 'multiply') {
       let multiplierFirst = this.generateNumber(this.mathComponent.formData.from, this.mathComponent.formData.before)

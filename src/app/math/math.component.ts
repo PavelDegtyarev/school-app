@@ -4,6 +4,7 @@ import {NgIf} from "@angular/common";
 import {MultGameComponent} from "./mult-game/mult-game.component";
 import {EndGameComponent} from "./end-game/end-game.component";
 import {MathService} from "../services/math-service.service";
+import {SaveResultsService} from "../services/save-results.service";
 
 @Component({
   selector: 'app-math',
@@ -17,12 +18,9 @@ import {MathService} from "../services/math-service.service";
   ],
   templateUrl: './math.component.html',
   styleUrl: './math.component.css',
-  providers: [MathService]
+  providers: [MathService, SaveResultsService]
 })
 export class MathComponent implements OnInit{
-  // operation: string = ''
-  // from: number = 1
-  // before: number = 1
   playGame: boolean = false
   showEndGame: boolean = false
   formData!: {from: number, before: number, operation: string}
@@ -30,8 +28,8 @@ export class MathComponent implements OnInit{
 
   ngOnInit() {
     this.form = new FormGroup({
-      from: new FormControl('1'),
-      before: new FormControl('1'),
+      from: new FormControl('2'),
+      before: new FormControl('2'),
       operation: new FormControl('multiply')
     })
   }
