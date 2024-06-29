@@ -23,7 +23,7 @@ export class MultGameComponent implements OnInit{
   @Output() endGame = new EventEmitter()
 
 
-  quantityAnswers = 15
+  quantityAnswers = this.mathService.formData.numberExamples
   correctAnswer = 0
   wrongAnswer = 0
   studentResponse!: number | null

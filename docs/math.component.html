@@ -3,6 +3,16 @@
   <form [formGroup]="form" (ngSubmit)="start()">
 
     <div>
+      <label for="numberExamples">Количество примеров</label>
+      {{form.get('numberExamples')?.value}}
+      <input
+        id="numberExamples"
+        type="range"
+        min="1" max="20" step="1"
+        formControlName="numberExamples"
+      >
+    </div>
+    <div>
       <input
         id="multiply"
         type="radio"
@@ -46,7 +56,7 @@
       <label for="subtraction">Вычитание</label>
     </div>
 
-    <div >
+    <div *ngIf="form.get('operation')?.value === 'addition' || form.get('operation')?.value === 'subtraction'">
       <div>
         <label for="from">От</label>
         <input
@@ -69,14 +79,6 @@
       <button type="submit">Начать упражнение</button>
     </div>
   </form>
-
-  <!--  <app-mult-game-->
-  <!--    [from]="from"-->
-  <!--    [before]="before"-->
-  <!--    [operation]="operation"-->
-  <!--    (endGame)="end()"-->
-  <!--    *ngIf="playGame"-->
-  <!--  ></app-mult-game>-->
 
   <app-mult-game
     (endGame)="end()"

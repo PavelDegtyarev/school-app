@@ -1,23 +1,20 @@
 import {Injectable} from '@angular/core';
-import {MathComponent} from "../math/math.component";
-import {MultGameComponent} from "../math/mult-game/mult-game.component";
 
 @Injectable({
   providedIn: 'root'
 })
-export class MathService {
+export class MathService{
 
-
-  constructor(
-    public mathComponent: MathComponent,
-    ) {
-  }
+  formData!: {from: number, before: number, operation: string, numberExamples: number}
   private generateNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
+  setCondition(data: {from: number, before: number, operation: string, numberExamples: number}) {
+    this.formData = data
+  }
   getExample() {
-    if (this.mathComponent.formData.operation === 'multiply') {
-      let multiplierFirst = this.generateNumber(this.mathComponent.formData.from, this.mathComponent.formData.before)
+    if (this.formData.operation === 'multiply') {
+      let multiplierFirst = this.generateNumber(this.formData.from, this.formData.before)
       let multiplierSecond = this.generateNumber(0, 9)
       let text = `${multiplierFirst} x ${multiplierSecond}`
       let answer = multiplierFirst * multiplierSecond
@@ -26,9 +23,9 @@ export class MathService {
         answer,
       }
     }
-    if (this.mathComponent.formData.operation === 'division') {
+    if (this.formData.operation === 'division') {
       //делитель
-      let divisor = this.generateNumber(this.mathComponent.formData.from, this.mathComponent.formData.before)
+      let divisor = this.generateNumber(this.formData.from, this.formData.before)
       //частное
       let quotient = this.generateNumber(0, 9)
       //делимое
@@ -41,9 +38,9 @@ export class MathService {
         answer: quotient
       }
     }
-    if (this.mathComponent.formData.operation === 'addition'){
-      let summandFirst = this.generateNumber(this.mathComponent.formData.from, this.mathComponent.formData.before)
-      let summandSecond = this.generateNumber(this.mathComponent.formData.from, this.mathComponent.formData.before)
+    if (this.formData.operation === 'addition'){
+      let summandFirst = this.generateNumber(this.formData.from, this.formData.before)
+      let summandSecond = this.generateNumber(this.formData.from, this.formData.before)
       let text = `${summandFirst} + ${summandSecond}`
       let answer = summandFirst + summandSecond
       return {
@@ -53,9 +50,9 @@ export class MathService {
     }
 
     //уменьшаемое
-    let minuend = this.generateNumber(this.mathComponent.formData.from, this.mathComponent.formData.before)
+    let minuend = this.generateNumber(this.formData.from, this.formData.before)
     //вычитаемое
-    let subtrahend = this.generateNumber(this.mathComponent.formData.from, this.mathComponent.formData.before)
+    let subtrahend = this.generateNumber(this.formData.from, this.formData.before)
     if (minuend < subtrahend) {
       let temp = minuend
       minuend = subtrahend

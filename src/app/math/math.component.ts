@@ -16,7 +16,7 @@ import {SaveResultsService} from "../services/save-results.service";
     EndGameComponent,
     ReactiveFormsModule
   ],
-  templateUrl: './math.component.html',
+  templateUrl: '../../../docs/math.component.html',
   styleUrl: './math.component.css',
   providers: [MathService, SaveResultsService]
 })
@@ -26,17 +26,20 @@ export class MathComponent implements OnInit{
   formData!: {from: number, before: number, operation: string}
   form!: FormGroup
 
+  constructor(
+    private mathService: MathService
+  ){}
   ngOnInit() {
     this.form = new FormGroup({
-      from: new FormControl('2'),
-      before: new FormControl('2'),
-      operation: new FormControl('multiply')
+      from: new FormControl(1),
+      before: new FormControl(1),
+      operation: new FormControl('multiply'),
+      numberExamples: new FormControl(15)
     })
   }
   start() {
+    this.mathService.setCondition({...this.form.value})
     this.playGame = true
-    this.formData = {...this.form.value}
-    console.log(this.formData)
   }
   end() {
     this.playGame = false
@@ -45,4 +48,5 @@ export class MathComponent implements OnInit{
   closeEndGame() {
     this.showEndGame = false
   }
+
 }
