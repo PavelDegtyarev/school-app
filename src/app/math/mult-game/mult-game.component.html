@@ -1,26 +1,32 @@
 <div class="backdrop">
   <div class="field">
+    <p>Время до конца упражнения: {{ leftTime | date: 'mm:ss' }} </p>
     <p>Осталось примеров: {{ quantityAnswers }}</p>
     <p>Верно: {{ correctAnswer }}</p>
     <p>Неверно {{ wrongAnswer }}</p>
-    <span> {{ example.text }} = </span>
 
 
-    <input
-      id="answer"
-      type="number"
-      [(ngModel)]="studentResponse"
-
-    >
-
+    <form [formGroup]="form" (ngSubmit)="checkResult()">
+      <div>
+        <span> {{ example.text }} = </span>
+        <input formControlName="answer"
+               appFocusAuto
+               id="answer"
+               type="number"
+        >
+      </div>
+      <div>
+        <button
+          type="submit"
+          (keyup.enter)="checkResult()"
+          [disabled]="form.invalid || buttonDisabled"
+          *ngIf="!showCheckResult"
+        >Проверить результат
+        </button>
+      </div>
+    </form>
     <button
-      (click)="checkResult()"
-      [disabled]="studentResponse == null || showCheckResult"
-      *ngIf="!showCheckResult"
-    >Проверить результат
-    </button>
-
-    <button
+      appFocusAuto
       (click)="next()"
       *ngIf="showCheckResult"
     >Следующий пример
@@ -38,10 +44,10 @@
     <div *ngIf="showCheckResult">
       <p *ngIf="response.right" style="background-color: #00f800;">Верно</p>
       <p *ngIf="!response.right" style="background-color: #ff0000;">Неверно</p>
-      <p>{{response.text}}</p>
+      <p>{{ response.text }}</p>
 
     </div>
+
   </div>
 </div>
-
 

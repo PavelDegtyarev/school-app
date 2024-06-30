@@ -1,10 +1,10 @@
 <div class="container">
   <h3>Выбери действие</h3>
-  <form [formGroup]="form" (ngSubmit)="start()">
+  <form [formGroup]="form" (keyup.enter)="start()" (ngSubmit)="start()">
 
     <div>
       <label for="numberExamples">Количество примеров</label>
-      {{form.get('numberExamples')?.value}}
+      {{ form.get('numberExamples')?.value }}
       <input
         id="numberExamples"
         type="range"
@@ -56,7 +56,7 @@
       <label for="subtraction">Вычитание</label>
     </div>
 
-    <div *ngIf="form.get('operation')?.value === 'addition' || form.get('operation')?.value === 'subtraction'">
+    <div>
       <div>
         <label for="from">От</label>
         <input
@@ -66,19 +66,31 @@
         >
       </div>
       <div>
-        <label for="before">До</label>
+        <label for="to">До</label>
         <input
           type="number"
-          id="before"
-          formControlName="before"
+          id="to"
+          formControlName="to"
         >
+        <div>
+          <small *ngIf="form.errors?.['minMoreMax']">
+            Число должно быть больше или равно началу диапазона
+          </small>
+        </div>
       </div>
     </div>
 
     <div>
-      <button type="submit">Начать упражнение</button>
+      <button [disabled]="form.invalid" type="submit">Начать упражнение</button>
     </div>
   </form>
+
+  <!--  <form [formGroup]="myForm">-->
+  <!--    <input formControlName="myNumberInput" type="number">-->
+  <!--    <div *ngIf="myForm.get('myNumberInput')?.hasError('notEqual')">-->
+  <!--      Number should not be equal to 5-->
+  <!--    </div>-->
+  <!--  </form>-->
 
   <app-mult-game
     (endGame)="end()"
@@ -90,3 +102,6 @@
   ></app-end-game>
 
 </div>
+
+<!--formGroupName="range"-->
+<!--*ngIf="form.get('operation')?.value === 'addition' || form.get('operation')?.value === 'subtraction'"-->

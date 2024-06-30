@@ -1,6 +1,6 @@
 <div class="backdrop">
   <div class="field">
-    <p>Конец</p>
+    <p>Ваши результаты:</p>
 <!--    <pre><p>{{resultsArray}}</p></pre>-->
     <ul *ngFor="let example of arrayResults">
       <li [style.background-color]="example.right ? '#00f800' : '#ff0000'">{{example.text}} = {{example.studentAnswer}}</li>
