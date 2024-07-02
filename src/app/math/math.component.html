@@ -1,97 +1,98 @@
 <div class="container">
-  <h3>Выбери действие</h3>
-  <form [formGroup]="form" (keyup.enter)="start()" (ngSubmit)="start()">
+  <div class="gameConditions" *ngIf="!playGame && !showEndGame">
+    <h3>Выбери действие</h3>
+    <form [formGroup]="form" (keyup.enter)="start()" (ngSubmit)="start()">
 
-    <div>
-      <label for="numberExamples">Количество примеров</label>
-      {{ form.get('numberExamples')?.value }}
-      <input
-        id="numberExamples"
-        type="range"
-        min="1" max="20" step="1"
-        formControlName="numberExamples"
-      >
-    </div>
-    <div>
-      <input
-        id="multiply"
-        type="radio"
-        name="operation"
-        value="multiply"
-        formControlName="operation"
-      >
-      <label for="multiply">Умножение</label>
-    </div>
-
-    <div>
-      <input
-        id="division"
-        type="radio"
-        name="operation"
-        value="division"
-        formControlName="operation"
-      >
-      <label for="division">Деление</label>
-    </div>
-
-    <div>
-      <input
-        id="addition"
-        type="radio"
-        name="operation"
-        value="addition"
-        formControlName="operation"
-      >
-      <label for="addition">Сложение</label>
-    </div>
-
-    <div>
-      <input
-        id="subtraction"
-        type="radio"
-        name="operation"
-        value="subtraction"
-        formControlName="operation"
-      >
-      <label for="subtraction">Вычитание</label>
-    </div>
-
-    <div>
       <div>
-        <label for="from">От</label>
+        <label for="numberExamples">Количество примеров</label>
+        {{ form.get('numberExamples')?.value }}
         <input
-          type="number"
-          id="from"
-          formControlName="from"
+          id="numberExamples"
+          type="range"
+          min="1" max="20" step="1"
+          formControlName="numberExamples"
         >
       </div>
       <div>
-        <label for="to">До</label>
         <input
-          type="number"
-          id="to"
-          formControlName="to"
+          id="multiply"
+          type="radio"
+          name="operation"
+          value="multiply"
+          formControlName="operation"
         >
+        <label for="multiply">Умножение</label>
+      </div>
+
+      <div>
+        <input
+          id="division"
+          type="radio"
+          name="operation"
+          value="division"
+          formControlName="operation"
+        >
+        <label for="division">Деление</label>
+      </div>
+
+      <div>
+        <input
+          id="addition"
+          type="radio"
+          name="operation"
+          value="addition"
+          formControlName="operation"
+        >
+        <label for="addition">Сложение</label>
+      </div>
+
+      <div>
+        <input
+          id="subtraction"
+          type="radio"
+          name="operation"
+          value="subtraction"
+          formControlName="operation"
+        >
+        <label for="subtraction">Вычитание</label>
+      </div>
+
+      <div>
         <div>
-          <small *ngIf="form.errors?.['minMoreMax']">
-            Число должно быть больше или равно началу диапазона
-          </small>
+          <label for="from">От</label>
+          <input
+            type="number"
+            id="from"
+            formControlName="from"
+          >
+        </div>
+        <div>
+          <label for="to">До</label>
+          <input
+            type="number"
+            id="to"
+            formControlName="to"
+          >
+          <div>
+            <small *ngIf="form.errors?.['minMoreMax']">
+              Число должно быть больше или равно началу диапазона
+            </small>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div>
-      <button [disabled]="form.invalid" type="submit">Начать упражнение</button>
-    </div>
-  </form>
+      <div>
+        <button [disabled]="form.invalid" type="submit">Начать упражнение</button>
+      </div>
+    </form>
 
-  <!--  <form [formGroup]="myForm">-->
-  <!--    <input formControlName="myNumberInput" type="number">-->
-  <!--    <div *ngIf="myForm.get('myNumberInput')?.hasError('notEqual')">-->
-  <!--      Number should not be equal to 5-->
-  <!--    </div>-->
-  <!--  </form>-->
-
+    <!--  <form [formGroup]="myForm">-->
+    <!--    <input formControlName="myNumberInput" type="number">-->
+    <!--    <div *ngIf="myForm.get('myNumberInput')?.hasError('notEqual')">-->
+    <!--      Number should not be equal to 5-->
+    <!--    </div>-->
+    <!--  </form>-->
+  </div>
   <app-mult-game
     (endGame)="end()"
     *ngIf="playGame"
