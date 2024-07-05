@@ -1,0 +1,10 @@
+<button (click)="loadHistory()">Load History</button>
+<div>
+<div *ngFor="let example of array; let idx = index">
+<!--  <h3>{{example[0].i[0].date}}</h3>-->
+  <h3>{{idx + 1}} {{example.i[0].date | date: 'short'}}</h3>
+  <ul *ngFor="let i of example.i">
+    <li [style.background-color]="i.right ? '#00f800' : '#ff0000'">{{i.text}} = {{i.studentAnswer}}</li>
+  </ul>
+</div>
+</div>

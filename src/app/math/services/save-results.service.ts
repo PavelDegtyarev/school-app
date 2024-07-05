@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Examples} from "./history.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,9 @@ export class SaveResultsService {
 
   constructor() {}
 
-  saveResult: Array<{text: string, answer: number, studentAnswer: number, right: boolean}> = [
-  ]
+  saveResult: Examples[] = []
 
-  onSaveResult(data: {text: string, answer: number, studentAnswer: number, right: boolean}) {
+  onSaveResult(data: Examples) {
       this.saveResult.push(data)
     console.log(this.saveResult)
     }

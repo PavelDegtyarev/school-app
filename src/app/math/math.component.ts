@@ -3,9 +3,11 @@ import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, V
 import {NgIf} from "@angular/common";
 import {MultGameComponent} from "./mult-game/mult-game.component";
 import {EndGameComponent} from "./end-game/end-game.component";
-import {MathService} from "../services/math-service.service";
-import {SaveResultsService} from "../services/save-results.service";
+import {MathService} from "./services/math-service.service";
+import {SaveResultsService} from "./services/save-results.service";
 import {MyValidators} from "../my-validators";
+import {Examples, HistoryService} from "./services/history.service";
+import {HistoryComponent} from "./history/history.component";
 
 
 @Component({
@@ -16,11 +18,12 @@ import {MyValidators} from "../my-validators";
     NgIf,
     MultGameComponent,
     EndGameComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HistoryComponent
   ],
   templateUrl: './math.component.html',
   styleUrl: './math.component.css',
-  providers: [MathService, SaveResultsService]
+  providers: [MathService, SaveResultsService, HistoryService]
 })
 export class MathComponent implements OnInit {
   playGame: boolean = false
@@ -31,7 +34,7 @@ export class MathComponent implements OnInit {
 
   constructor(
     private mathService: MathService,
-    private fb: FormBuilder
+    private historyService: HistoryService
   ) {
   }
 
@@ -64,6 +67,21 @@ export class MathComponent implements OnInit {
   closeEndGame() {
     this.showEndGame = false
   }
+
+  // addExamples() {
+  //   let examples: Examples = {
+  //     text: '2 + 2 = 4',
+  //     right: true
+  //   }
+  //   this.historyService.addExamples(examples)
+  //     .subscribe((response) => {
+  //     console.log('Response: ', response)
+  //   })
+  // }
+  //
+  // getExamples() {
+  //   this.historyService.getExamples()
+  // }
 }
 
 

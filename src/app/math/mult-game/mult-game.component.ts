@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {DatePipe, NgIf} from "@angular/common";
-import {MathService} from "../../services/math-service.service";
-import {SaveResultsService} from "../../services/save-results.service";
+import {MathService} from "../services/math-service.service";
+import {SaveResultsService} from "../services/save-results.service";
 import {FocusAutoDirective} from "../../directives/focusAuto.directive";
 
 @Component({
@@ -33,7 +33,7 @@ export class MultGameComponent implements OnInit, OnDestroy {
   leftTime: number = this.endTime - Date.now()
   correctAnswer = 0
   wrongAnswer = 0
-  studentResponse!: number | null
+  studentResponse!: number
   showCheckResult = false
   response = {text: '', right: true}
   example!: { text: string, answer: number }
@@ -65,22 +65,23 @@ export class MultGameComponent implements OnInit, OnDestroy {
 
 
   checkResult() {
-
+    this.studentResponse = this.form.value.answer
     let resultToPush = {
       text: this.example.text,
       answer: this.example.answer,
-      studentAnswer: this.studentResponse || 0,
-      right: true
+      studentAnswer: this.studentResponse ,
+      right: true,
+      date: new Date()
     }
-    this.studentResponse = this.form.value.answer
+
+    // console.log('studentResponse: ', this.studentResponse)
     // console.log(this.form.value)
-    // console.log('studentResponse',this.studentResponse)
 
     this.form.controls['answer'].reset()
     this.form.controls['answer'].disable()
     // this.form.reset()
     this.buttonDisabled = true
-    console.log(this.form.get('answer')?.disabled)
+    // console.log(this.form.get('answer')?.disabled)
     this.quantityAnswers--
 
     if (this.example.answer === this.studentResponse) {

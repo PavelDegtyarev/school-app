@@ -85,7 +85,9 @@
         <button [disabled]="form.invalid" type="submit">Начать упражнение</button>
       </div>
     </form>
-
+    <app-history></app-history>
+<!--    <button (click)="addExamples()">addExamples</button>-->
+<!--    <button (click)="getExamples()">getExamples</button>-->
     <!--  <form [formGroup]="myForm">-->
     <!--    <input formControlName="myNumberInput" type="number">-->
     <!--    <div *ngIf="myForm.get('myNumberInput')?.hasError('notEqual')">-->
@@ -103,6 +105,8 @@
   ></app-end-game>
 
 </div>
+
+
 
 <!--formGroupName="range"-->
 <!--*ngIf="form.get('operation')?.value === 'addition' || form.get('operation')?.value === 'subtraction'"-->
