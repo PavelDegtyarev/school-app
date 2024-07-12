@@ -2,7 +2,7 @@
   <div class="field">
     <p>Ваши результаты:</p>
 <!--    <pre><p>{{resultsArray}}</p></pre>-->
-    <ul *ngFor="let example of arrayResults">
+    <ul *ngFor="let example of arrayResults.items">
       <li [style.background-color]="example.right ? '#00f800' : '#ff0000'">{{example.text}} = {{example.studentAnswer}}</li>
     </ul>
 

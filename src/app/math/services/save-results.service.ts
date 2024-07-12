@@ -8,10 +8,15 @@ export class SaveResultsService {
 
   constructor() {}
 
-  saveResult: Examples[] = []
+  saveResult: Examples  = {
+    items: [],
 
-  onSaveResult(data: Examples) {
-      this.saveResult.push(data)
+
+  }
+
+  onSaveResult(data: {}) {
+      // @ts-ignore
+    this.saveResult.items.push(data)
     console.log(this.saveResult)
     }
 }

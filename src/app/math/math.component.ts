@@ -8,6 +8,7 @@ import {SaveResultsService} from "./services/save-results.service";
 import {MyValidators} from "../my-validators";
 import {Examples, HistoryService} from "./services/history.service";
 import {HistoryComponent} from "./history/history.component";
+import {RouterModule} from "@angular/router";
 
 
 @Component({
@@ -19,7 +20,8 @@ import {HistoryComponent} from "./history/history.component";
     MultGameComponent,
     EndGameComponent,
     ReactiveFormsModule,
-    HistoryComponent
+    HistoryComponent,
+
   ],
   templateUrl: './math.component.html',
   styleUrl: './math.component.css',
@@ -34,7 +36,8 @@ export class MathComponent implements OnInit {
 
   constructor(
     private mathService: MathService,
-    private historyService: HistoryService
+    private historyService: HistoryService,
+    private saveResults: SaveResultsService,
   ) {
   }
 
@@ -49,6 +52,7 @@ export class MathComponent implements OnInit {
       operation: new FormControl('multiply'),
       numberExamples: new FormControl(15)
     }, [MyValidators.fromLessTo])
+
   }
 
 
@@ -57,6 +61,7 @@ export class MathComponent implements OnInit {
     // console.log(this.form)
     this.mathService.setCondition({...this.form.value})
     this.playGame = true
+    this.saveResults.saveResult.operation = this.form.value.operation
   }
 
   end() {

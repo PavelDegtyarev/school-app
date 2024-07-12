@@ -4,6 +4,7 @@ import {DatePipe, NgIf} from "@angular/common";
 import {MathService} from "../services/math-service.service";
 import {SaveResultsService} from "../services/save-results.service";
 import {FocusAutoDirective} from "../../directives/focusAuto.directive";
+import {Items} from "../services/history.service";
 
 @Component({
   selector: 'app-mult-game',
@@ -43,6 +44,7 @@ export class MultGameComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.saveResults.saveResult.quantityAnswers = this.quantityAnswers
     this.example = this.mathService.getExample()
 
     this.form = new FormGroup({
@@ -66,12 +68,11 @@ export class MultGameComponent implements OnInit, OnDestroy {
 
   checkResult() {
     this.studentResponse = this.form.value.answer
-    let resultToPush = {
+    let resultToPush: Items = {
       text: this.example.text,
       answer: this.example.answer,
       studentAnswer: this.studentResponse ,
       right: true,
-      date: new Date()
     }
 
     // console.log('studentResponse: ', this.studentResponse)
@@ -96,6 +97,11 @@ export class MultGameComponent implements OnInit, OnDestroy {
     this.showCheckResult = true
     this.saveResults.onSaveResult(resultToPush)
     if (this.quantityAnswers === 0) {
+      this.saveResults.saveResult.endTimeOfSolving = new Date()
+      this.saveResults.saveResult.correctAnswer = this.correctAnswer
+      this.saveResults.saveResult.wrongAnswer = this.wrongAnswer
+
+
       this.endGame.emit()
     }
   }

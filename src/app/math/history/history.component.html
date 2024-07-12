@@ -1,10 +1,40 @@
-<button (click)="loadHistory()">Load History</button>
+<hr>
+<button (click)="loadHistory()">Обновить список Истории</button>
+<br>
+<!--<input type="text" [(ngModel)]="search">-->
+
+<hr>
+<h2>Фильтр истории</h2>
+<label for="operation">Выберите тип операции</label>
+<select name="operation" id="operation" [(ngModel)]="operation">
+  <option  value="allOperation">Все операции</option>
+  <option value="multiply">Умножение</option>
+  <option value="division">Деление</option>
+  <option value="addition">Сложение</option>
+  <option value="subtraction">Вычитание</option>
+</select>
+<br>
+<label for="time">Выберите период</label>
+<select name="time" id="time" [(ngModel)]="time">
+  <option value="allTime">За все время</option>
+  <option value="lastDay">За последний день</option>
+  <option value="threeDays">За последние 3 дня</option>
+  <option value="sevenDays">За последние 7 дней</option>
+  <option value="lastMonth">За последний месяц</option>
+</select>
 <div>
-<div *ngFor="let example of array; let idx = index">
-<!--  <h3>{{example[0].i[0].date}}</h3>-->
-  <h3>{{idx + 1}} {{example.i[0].date | date: 'short'}}</h3>
-  <ul *ngFor="let i of example.i">
-    <li [style.background-color]="i.right ? '#00f800' : '#ff0000'">{{i.text}} = {{i.studentAnswer}}</li>
-  </ul>
-</div>
+  <div *ngFor="let exercise of exercises | operationSearchPipe: operation | timeSearchPipe: time; let idx = index">
+    <!--  <h3>{{example[0].i[0].date}}</h3>-->
+    <h3
+      [style]="{cursor: 'pointer'}"
+      [routerLink]="['/math', 'exercise', exercise.id]"
+    >
+      {{ idx + 1 }}. {{ exercise.endTimeOfSolving | date: 'medium' }},
+      Тип: {{ exercise.operation }}, {{ exercise.correctAnswer}}/{{ exercise.quantityAnswers }}
+    </h3>
+
+    <button [routerLink]="['/math', 'exercise', exercise.id]">Открыть</button>
+    <button (click)="removeExercise(exercise.id)">Удалить</button>
+
+  </div>
 </div>

@@ -23,7 +23,8 @@ export class EndGameComponent implements OnInit{
   @Output() closeEndGame = new EventEmitter()
 
   // arrayResults: Array<{text: string, answer: number, studentAnswer: number, right: boolean}> = []
-  arrayResults: Examples[] = []
+  // arrayResults: Examples[] = []
+  arrayResults!: Examples
 
   ngOnInit(){
     this.arrayResults = this.saveResults.saveResult
@@ -33,6 +34,10 @@ export class EndGameComponent implements OnInit{
 
   close() {
     this.closeEndGame.emit()
-    this.saveResults.saveResult = []
+    // this.saveResults.saveResult = {
+    //   items: [],
+    // }
+    this.saveResults.saveResult.items = []
+
   }
 }
