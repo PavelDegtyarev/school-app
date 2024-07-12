@@ -1,0 +1,5 @@
+<p>Тип примера {{ exercise.operation }}</p>
+      <ul *ngFor="let i of exercise.items">
+        <li [style.background-color]="i.right ? '#00f800' : '#ff0000'">{{ i.text }} = {{ i.studentAnswer }}</li>
+      </ul>
+<button [routerLink]="['/math', 'history']">Закрыть</button>
