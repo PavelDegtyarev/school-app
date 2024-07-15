@@ -5,6 +5,7 @@ import {RouterLink, RouterOutlet} from "@angular/router";
 import {OperationSearchPipe} from "../pipes/operationSearch.pipe";
 import {FormsModule} from "@angular/forms";
 import {TimeSearchPipe} from "../pipes/timeSearch.pipe";
+import {TranslatePipe} from "../pipes/translate.pipe";
 
 @Component({
   selector: 'app-history',
@@ -17,15 +18,16 @@ import {TimeSearchPipe} from "../pipes/timeSearch.pipe";
     NgIf,
     FormsModule,
     OperationSearchPipe,
-    TimeSearchPipe
+    TimeSearchPipe,
+    TranslatePipe
   ],
   templateUrl: './history.component.html',
   styleUrl: './history.component.css'
 })
 export class HistoryComponent implements OnInit{
   exercises!: any
-  operation: string = '';
-  time: string = '';
+  operation: string = 'allOperation';
+  time: string = 'allTime';
   constructor(private historyService: HistoryService) {}
 
   ngOnInit() {
@@ -38,7 +40,7 @@ export class HistoryComponent implements OnInit{
       .subscribe(response => {
         // console.log('History: ', response)
         this.exercises = response
-        console.log('history: ',this.exercises)
+        // console.log('history: ',this.exercises)
       })
   }
 
@@ -47,4 +49,6 @@ export class HistoryComponent implements OnInit{
       this.exercises = this.exercises.filter((exercise: any) => exercise.id !== id)
     })
   }
+
+  protected readonly TranslatePipe = TranslatePipe;
 }

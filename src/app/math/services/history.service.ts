@@ -2,12 +2,14 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, tap} from "rxjs";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+
 export interface Items {
   text: string
   right: boolean
   answer: number
   studentAnswer: number
 }
+
 export interface Examples {
   items?: Items[]
   endTimeOfSolving?: Date | null
@@ -15,6 +17,7 @@ export interface Examples {
   correctAnswer?: number
   wrongAnswer?: number
   operation?: string
+  id?: any
 
 }
 
@@ -39,7 +42,7 @@ export class HistoryService {
       //     }))
       //
       // }))
-      .pipe(map((response: {[key: string]: any}) => {
+      .pipe(map((response: { [key: string]: any }) => {
         return Object.keys(response)
           .map(key => ({
             ...response[key],
@@ -60,7 +63,6 @@ export class HistoryService {
           ...exercise,
           id
         }
-
       }))
   }
 }

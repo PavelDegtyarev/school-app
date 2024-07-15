@@ -7,7 +7,7 @@
 <h2>Фильтр истории</h2>
 <label for="operation">Выберите тип операции</label>
 <select name="operation" id="operation" [(ngModel)]="operation">
-  <option  value="allOperation">Все операции</option>
+  <option value="allOperation">Все операции</option>
   <option value="multiply">Умножение</option>
   <option value="division">Деление</option>
   <option value="addition">Сложение</option>
@@ -16,25 +16,32 @@
 <br>
 <label for="time">Выберите период</label>
 <select name="time" id="time" [(ngModel)]="time">
-  <option value="allTime">За все время</option>
+  <option value="allTime" selected>За все время</option>
   <option value="lastDay">За последний день</option>
   <option value="threeDays">За последние 3 дня</option>
   <option value="sevenDays">За последние 7 дней</option>
   <option value="lastMonth">За последний месяц</option>
 </select>
 <div>
-  <div *ngFor="let exercise of exercises | operationSearchPipe: operation | timeSearchPipe: time; let idx = index">
+  <ul >
     <!--  <h3>{{example[0].i[0].date}}</h3>-->
-    <h3
+    <li
+      *ngFor="let exercise of exercises | operationSearchPipe: operation | timeSearchPipe: time; let idx = index"
       [style]="{cursor: 'pointer'}"
       [routerLink]="['/math', 'exercise', exercise.id]"
     >
-      {{ idx + 1 }}. {{ exercise.endTimeOfSolving | date: 'medium' }},
-      Тип: {{ exercise.operation }}, {{ exercise.correctAnswer}}/{{ exercise.quantityAnswers }}
-    </h3>
+      {{ idx + 1 }}. {{ exercise.endTimeOfSolving | date: 'short': 'null': 'ru' }},
+      {{ exercise.operation | translatePipe }},
+      <span
+        [style.background-color]="exercise.quantityAnswers - exercise.correctAnswer === 0 ? '#00f800' :
+                                  exercise.quantityAnswers - exercise.correctAnswer === 1 ? '#f87000' :
+                                  '#ff0000'"
+      > {{ exercise.correctAnswer}}/{{ exercise.quantityAnswers }}</span>
+      <button [routerLink]="['/math', 'exercise', exercise.id]">Подробнее</button>
 
-    <button [routerLink]="['/math', 'exercise', exercise.id]">Открыть</button>
-    <button (click)="removeExercise(exercise.id)">Удалить</button>
+    </li>
 
-  </div>
+
+
+  </ul>
 </div>

@@ -1,8 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, RouterLink} from "@angular/router";
+import {ActivatedRoute, Params, Router, RouterLink} from "@angular/router";
 import {Examples, HistoryService} from "../services/history.service";
-import {NgForOf} from "@angular/common";
+import {DatePipe, NgForOf} from "@angular/common";
 import {switchMap} from "rxjs";
+import {HistoryComponent} from "../history/history.component";
+import {TranslatePipe} from "../pipes/translate.pipe";
 
 @Component({
   selector: 'app-exercise',
@@ -10,6 +12,8 @@ import {switchMap} from "rxjs";
   imports: [
     RouterLink,
     NgForOf,
+    TranslatePipe,
+    DatePipe,
   ],
   templateUrl: './exercise.component.html',
   styleUrl: './exercise.component.css'
@@ -20,6 +24,7 @@ export class ExerciseComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private historyService: HistoryService,
+    private router: Router
   ) {
   }
 
@@ -31,8 +36,17 @@ export class ExerciseComponent implements OnInit{
     )
       .subscribe((response) => {
       this.exercise = response
-      console.log(response)
+      console.log('Response: ',response)
+      // console.log('Response: ',this.exercise.id)
       // console.log(this.historyService.getExample(params['id']))
     })
+  }
+
+  removeExercise(id: string) {
+    this.historyService.remove(id).subscribe(() => {
+      // console.log('remove')
+      this.router.navigate(['/math', 'history'])
+    })
+
   }
 }
