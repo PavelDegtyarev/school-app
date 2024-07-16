@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router, RouterLink} from "@angular/router";
-import {Examples, HistoryService} from "../services/history.service";
-import {DatePipe, NgForOf} from "@angular/common";
-import {switchMap} from "rxjs";
+import { HistoryService} from "../shared/services/history.service";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import {delay, Subscription, switchMap} from "rxjs";
 import {HistoryComponent} from "../history/history.component";
-import {TranslatePipe} from "../pipes/translate.pipe";
+import {TranslatePipe} from "../shared/pipes/translate.pipe";
+import {Exercise} from "../shared/interfaces";
 
 @Component({
   selector: 'app-exercise',
@@ -14,13 +15,15 @@ import {TranslatePipe} from "../pipes/translate.pipe";
     NgForOf,
     TranslatePipe,
     DatePipe,
+    NgIf,
   ],
   templateUrl: './exercise.component.html',
   styleUrl: './exercise.component.css'
 })
-export class ExerciseComponent implements OnInit{
+export class ExerciseComponent implements OnInit, OnDestroy{
 
-  exercise: Examples = {}
+  exercise!: Exercise
+  sub1!: Subscription
   constructor(
     private route: ActivatedRoute,
     private historyService: HistoryService,
@@ -29,7 +32,8 @@ export class ExerciseComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.route.params.pipe(
+    this.sub1 = this.route.params.pipe(
+      delay(1500),
       switchMap((params: Params) => {
         return this.historyService.getExampleById(params['id'])
       })
@@ -48,5 +52,11 @@ export class ExerciseComponent implements OnInit{
       this.router.navigate(['/math', 'history'])
     })
 
+  }
+
+  ngOnDestroy() {
+    if(this.sub1){
+      this.sub1.unsubscribe()
+    }
   }
 }

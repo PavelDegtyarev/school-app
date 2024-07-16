@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {MultGameComponent} from "../mult-game/mult-game.component";
 import {NgForOf} from "@angular/common";
-import {SaveResultsService} from "../services/save-results.service";
-import {Examples, HistoryService} from "../services/history.service";
+import {SaveResultsService} from "../shared/services/save-results.service";
+import {HistoryService} from "../shared/services/history.service";
+import {Exercise} from "../shared/interfaces";
 
 @Component({
   selector: 'app-end-game',
@@ -24,7 +25,7 @@ export class EndGameComponent implements OnInit{
 
   // arrayResults: Array<{text: string, answer: number, studentAnswer: number, right: boolean}> = []
   // arrayResults: Examples[] = []
-  arrayResults!: Examples
+  arrayResults!: Exercise
 
   ngOnInit(){
     this.arrayResults = this.saveResults.saveResult

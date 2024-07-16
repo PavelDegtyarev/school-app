@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {Examples} from "../services/history.service";
+import {Exercise} from "../interfaces";
 
 @Pipe({
   standalone: true,
@@ -11,7 +11,7 @@ export class OperationSearchPipe implements PipeTransform{
     if (search === 'allOperation' || search === ''){
       return exercises
     }
-    return exercises.filter((exercise: Examples) => {
+    return exercises.filter((exercise: Exercise) => {
       return exercise.operation?.includes(search)
     })
 

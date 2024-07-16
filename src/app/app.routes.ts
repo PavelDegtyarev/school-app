@@ -5,6 +5,7 @@ import {LiteratureComponent} from "./literature/literature.component";
 import {HistoryComponent} from "./math/history/history.component";
 import {MainMath} from "./math/main-math/main-math";
 import {ExerciseComponent} from "./math/exercise/exercise.component";
+import {ErrorPageComponent} from "./error-page/error-page.component";
 
 export const routes: Routes = [
   {path: '', component: HomePageComponent},
@@ -16,6 +17,7 @@ export const routes: Routes = [
     ]
   },
   {path: 'literature', component: LiteratureComponent},
+  {path: '**', component: ErrorPageComponent}
 
 
   // {path: 'math', component: MathComponent},

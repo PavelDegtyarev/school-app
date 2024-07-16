@@ -3,12 +3,11 @@ import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, V
 import {NgIf} from "@angular/common";
 import {MultGameComponent} from "./mult-game/mult-game.component";
 import {EndGameComponent} from "./end-game/end-game.component";
-import {MathService} from "./services/math-service.service";
-import {SaveResultsService} from "./services/save-results.service";
-import {MyValidators} from "../my-validators";
-import {Examples, HistoryService} from "./services/history.service";
+import {MathService} from "./shared/services/math-service.service";
+import {SaveResultsService} from "./shared/services/save-results.service";
+import {MyValidators} from "./shared/my-validators";
+import {HistoryService} from "./shared/services/history.service";
 import {HistoryComponent} from "./history/history.component";
-import {RouterModule} from "@angular/router";
 
 
 @Component({

@@ -1,25 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, tap} from "rxjs";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import {Exercise} from "../interfaces";
 
-export interface Items {
-  text: string
-  right: boolean
-  answer: number
-  studentAnswer: number
-}
 
-export interface Examples {
-  items?: Items[]
-  endTimeOfSolving?: Date | null
-  quantityAnswers?: number
-  correctAnswer?: number
-  wrongAnswer?: number
-  operation?: string
-  id?: any
 
-}
+
 
 @Injectable({providedIn: 'root'})
 
@@ -27,21 +13,13 @@ export class HistoryService {
   constructor(private http: HttpClient) {
   }
 
-  addExamples(examples: {}): Observable<Examples[]> {
-    return this.http.post<Examples[]>('https://school-app-f0f2d-default-rtdb.europe-west1.firebasedatabase.app/math/history.json', examples)
+  addExamples(examples: {}): Observable<Exercise[]> {
+    return this.http.post<Exercise[]>('https://school-app-f0f2d-default-rtdb.europe-west1.firebasedatabase.app/math/history.json', examples)
 
   }
 
   getExamples() {
     return this.http.get('https://school-app-f0f2d-default-rtdb.europe-west1.firebasedatabase.app/math/history.json')
-      // .pipe(map((response: { [key: string]: any }) => {
-      //   return Object.keys(response)
-      //     .map(key => ({
-      //       i: [ ...response[key]],
-      //       id: key,
-      //     }))
-      //
-      // }))
       .pipe(map((response: { [key: string]: any }) => {
         return Object.keys(response)
           .map(key => ({
@@ -58,7 +36,7 @@ export class HistoryService {
   getExampleById(id: string) {
     return this.http.get(`https://school-app-f0f2d-default-rtdb.europe-west1.firebasedatabase.app/math/history/${id}.json`)
 
-      .pipe(map((exercise: Examples) => {
+      .pipe(map((exercise: Exercise) => {
         return {
           ...exercise,
           id

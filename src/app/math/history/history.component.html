@@ -1,7 +1,6 @@
 <hr>
 <button (click)="loadHistory()">Обновить список Истории</button>
 <br>
-<!--<input type="text" [(ngModel)]="search">-->
 
 <hr>
 <h2>Фильтр истории</h2>
@@ -22,9 +21,8 @@
   <option value="sevenDays">За последние 7 дней</option>
   <option value="lastMonth">За последний месяц</option>
 </select>
-<div>
-  <ul >
-    <!--  <h3>{{example[0].i[0].date}}</h3>-->
+<div *ngIf="exercises.length; else loading">
+  <ul>
     <li
       *ngFor="let exercise of exercises | operationSearchPipe: operation | timeSearchPipe: time; let idx = index"
       [style]="{cursor: 'pointer'}"
@@ -36,12 +34,12 @@
         [style.background-color]="exercise.quantityAnswers - exercise.correctAnswer === 0 ? '#00f800' :
                                   exercise.quantityAnswers - exercise.correctAnswer === 1 ? '#f87000' :
                                   '#ff0000'"
-      > {{ exercise.correctAnswer}}/{{ exercise.quantityAnswers }}</span>
+      > {{ exercise.correctAnswer }}/{{ exercise.quantityAnswers }}</span>
       <button [routerLink]="['/math', 'exercise', exercise.id]">Подробнее</button>
 
     </li>
-
-
-
   </ul>
 </div>
+<ng-template #loading>
+  <p> Идет загрузка списка истории</p>
+</ng-template>

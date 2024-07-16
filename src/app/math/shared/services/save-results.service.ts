@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Examples} from "./history.service";
+import {Exercise} from "../interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ export class SaveResultsService {
 
   constructor() {}
 
-  saveResult: Examples  = {
+  saveResult: Exercise  = {
     items: [],
 
 

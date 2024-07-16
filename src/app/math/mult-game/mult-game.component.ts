@@ -1,10 +1,10 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {DatePipe, NgIf} from "@angular/common";
-import {MathService} from "../services/math-service.service";
-import {SaveResultsService} from "../services/save-results.service";
-import {FocusAutoDirective} from "../../directives/focusAuto.directive";
-import {Items} from "../services/history.service";
+import {MathService} from "../shared/services/math-service.service";
+import {SaveResultsService} from "../shared/services/save-results.service";
+import {FocusAutoDirective} from "../../shared/directives/focusAuto.directive";
+import {Items} from "../shared/interfaces";
 
 @Component({
   selector: 'app-mult-game',

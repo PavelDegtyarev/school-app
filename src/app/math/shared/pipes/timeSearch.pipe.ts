@@ -1,12 +1,12 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {Examples} from "../services/history.service";
+import {Exercise} from "../interfaces";
 
 @Pipe({
   name: 'timeSearchPipe',
   standalone: true
 })
 export class TimeSearchPipe implements PipeTransform{
-  transform(exercises: Examples[], search = ''): any {
+  transform(exercises: Exercise[], search = ''): any {
     if (search === 'allTime' || search === '') {
       return exercises
     }

@@ -1,10 +1,16 @@
-<h3>{{exercise.endTimeOfSolving | date: 'EEEE, d MMMM y, h:mm:ss': 'null': 'ru'}}</h3>
-<p>Количество примеров: {{exercise.quantityAnswers}}</p>
-<p >Количество ошибок: {{exercise.wrongAnswer}}</p>
-<p>Количество верно решенных примеров: {{exercise.correctAnswer}}</p>
-<p>Тип примера: {{ exercise.operation | translatePipe }}</p>
-      <ul *ngFor="let i of exercise.items">
-        <li [style.background-color]="i.right ? '#00f800' : '#ff0000'">{{ i.text }} = {{ i.studentAnswer }}</li>
-      </ul>
-<button [routerLink]="['/math', 'history']">Закрыть</button>
-<button (click)="removeExercise(exercise.id)">Удалить</button>
+<div *ngIf="exercise; else loading">
+  <h3>{{ exercise.endTimeOfSolving | date: 'EEEE, d MMMM y, h:mm:ss': 'null': 'ru' }}</h3>
+  <p>Количество примеров: {{ exercise.quantityAnswers }}</p>
+  <p>Количество ошибок: {{ exercise.wrongAnswer }}</p>
+  <p>Количество верно решенных примеров: {{ exercise.correctAnswer }}</p>
+  <p>Тип примера: {{ exercise.operation | translatePipe }}</p>
+  <ul *ngFor="let i of exercise.items">
+    <li [style.background-color]="i.right ? '#00f800' : '#ff0000'">{{ i.text }} = {{ i.studentAnswer }}</li>
+  </ul>
+  <button [routerLink]="['/math', 'history']">Закрыть</button>
+  <button (click)="removeExercise(exercise.id)">Удалить</button>
+</div>
+
+<ng-template #loading>
+  <p>Идет загрузка результатов упражнения</p>
+</ng-template>
