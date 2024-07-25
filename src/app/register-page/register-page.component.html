@@ -1,0 +1,38 @@
+<h2>Регистрация нового пользователя</h2>
+<div *ngIf="errorMessage" style="color: red">{{ errorMessage }}</div>
+<form [formGroup]="registerForm" (ngSubmit)="createUser()">
+  <div>
+    <label for="name">Введите имя</label>
+    <input
+      type="text"
+      id="name"
+      formControlName="name"
+    >
+
+  </div>
+
+  <div>
+    <label for="email">Введите email</label>
+    <input
+      type="text"
+      id="email"
+      formControlName="email"
+    >
+
+  </div>
+
+  <div>
+    <label for="password">Введите пароль</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+    >
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="registerForm.invalid"
+  >Регистрация</button>
+  <a [routerLink]="['/login']">Страница авторизации</a>
+</form>

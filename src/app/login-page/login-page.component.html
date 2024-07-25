@@ -1,0 +1,28 @@
+<h2>Авторизация пользователя</h2>
+<div *ngIf="errorMessage" style="color: red">{{ errorMessage }}</div>
+<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+  <div>
+    <label for="email">Введите email</label>
+    <input
+      type="text"
+      id="email"
+      formControlName="email"
+    >
+
+  </div>
+
+  <div>
+    <label for="password">Введите пароль</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+    >
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="loginForm.invalid"
+  >Войти</button>
+  <a [routerLink]="['/register']">Создать нового пользователя</a>
+</form>

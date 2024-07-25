@@ -40,7 +40,7 @@ export class ExerciseComponent implements OnInit, OnDestroy{
     )
       .subscribe((response) => {
       this.exercise = response
-      console.log('Response: ',response)
+      // console.log('Response: ',response)
       // console.log('Response: ',this.exercise.id)
       // console.log(this.historyService.getExample(params['id']))
     })

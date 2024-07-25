@@ -33,6 +33,7 @@ export class HistoryComponent implements OnInit, OnDestroy{
   constructor(private historyService: HistoryService) {}
 
   ngOnInit() {
+    // this.historyService.userData = localStorage.getItem('user')
     this.loadHistory()
   }
 
@@ -59,5 +60,4 @@ export class HistoryComponent implements OnInit, OnDestroy{
     }
   }
 
-  protected readonly provideRouter = provideRouter;
 }

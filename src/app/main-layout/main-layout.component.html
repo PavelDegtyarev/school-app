@@ -1,0 +1,21 @@
+<div class="nav">
+  <nav>
+    <h1>
+      <a [routerLink]="''">Главная</a>
+    </h1>
+    <ul>
+      <li>
+        <a>{{ localStorage.getItem('displayName') }}</a>
+      </li>
+      <li *ngIf="!authService.isAuthenticated()">
+        <a [routerLink]="['login']">Войти</a>
+      </li>
+      <li *ngIf="authService.isAuthenticated()">
+        <a href="#" (click)="logout($event)">Выйти</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
