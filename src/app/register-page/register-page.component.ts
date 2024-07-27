@@ -31,9 +31,9 @@ export class RegisterPageComponent {
 
   ngOnInit(){
     this.registerForm = new FormGroup<any>({
-      email: new FormControl('alenadegtyareva@mail.ru', [Validators.required, Validators.email]),
-      password: new FormControl('123456', [Validators.required, Validators.minLength(6)]),
-      name: new FormControl('AlenaDegtyareva', [Validators.required])
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      name: new FormControl('', [Validators.required])
     })
   }
   createUser() {

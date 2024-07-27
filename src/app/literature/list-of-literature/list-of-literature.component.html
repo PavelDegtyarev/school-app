@@ -1,0 +1,59 @@
+<h2>Список литературы</h2>
+
+<button (click)="showAddingForm()">{{ titleOfButton }}</button>
+
+<div style="border: 1px solid black" *ngIf="showAddNewBook">
+  <h3>Добавить новую книгу</h3>
+  <form [formGroup]="addingNewBookForm" (ngSubmit)="submitAddingNewBookForm()">
+    <div>
+      <label for="titleOfBook">Название книги</label>
+      <input
+        id="titleOfBook"
+        name="titleOfBook"
+        type="text"
+        formControlName="titleOfBook"
+      >
+    </div>
+
+    <div>
+      <label for="author">Автор</label>
+      <input
+        id="author"
+        name="author"
+        type="text"
+        formControlName="authorOfBook"
+
+      >
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="addingNewBookForm.invalid"
+    >Добавить
+    </button>
+  </form>
+</div>
+<div *ngIf="errorMessage.length === 0; else errorMes">
+  <div *ngIf="listService.listOfBooks.length; else loading">
+    <ul >
+      <li
+        [style.color]="book.isReading ? 'green' : 'red'"
+        *ngFor="let book of listService.listOfBooks"
+      >
+        <app-book-from-list
+          [book]="book"
+        >
+        </app-book-from-list>
+
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Загрузка списка...</p>
+</ng-template>
+
+<ng-template #errorMes>
+  <p>{{errorMessage}}</p>
+</ng-template>

@@ -1,10 +1,8 @@
 import {Injectable} from "@angular/core";
-import {fbAuthResponse, User, UserData} from "../interfaces";
+import {fbAuthResponse, User} from "../interfaces";
 import {HttpClient} from "@angular/common/http";
-import {delay, map, Observable, tap} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {environment} from "../../environments/environment";
-import {HistoryService} from "../../math/shared/services/history.service";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +10,9 @@ import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 export class AuthService {
   constructor(
     private http: HttpClient,
-    // private historyService: HistoryService,
-  ) {
-  }
+  ) {}
 
   userData = JSON.parse(localStorage.getItem('user')!)
-  userData1: Observable<any> = this.getUserData1()
 
   get token() {
     let expDate = new Date(String(localStorage.getItem('fb-token-exp')))
@@ -73,20 +68,7 @@ export class AuthService {
 
   }
 
-  getUserData() {
 
-    const data = {
-      idToken: localStorage.getItem('fb-token'),
-    }
-    // console.log('Data: ', data)
-    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${environment.firebase.apiKey}`, data)
-      .subscribe((resp) => {
-        this.userData = resp
-        // @ts-ignore
-        this.historyService.userName = resp.users[0].displayName
-        console.log('userData: ', this.userData)
-      })
-  }
 
   private setToken(response: fbAuthResponse | null) {
 
@@ -108,6 +90,11 @@ export class AuthService {
       // .pipe(map(resp => {
       //   return resp
       // }))
+  }
+
+  returnUserId(){
+    const userData: fbAuthResponse = JSON.parse(localStorage.getItem('user')!)
+    return userData.localId
   }
 }
 

@@ -1,0 +1,5 @@
+<div>
+  <input type="checkbox" (click)="changeIsReading(book)" [ngModel]="book.isReading">
+  {{ book.titleOfBook }}, {{ book.authorOfBook }}
+  <button (click)="removeBook(book.id)">Удалить</button>
+</div>

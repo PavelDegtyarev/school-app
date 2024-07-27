@@ -10,6 +10,8 @@ import {LoginPageComponent} from "./login-page/login-page.component";
 import {MainLayoutComponent} from "./main-layout/main-layout.component";
 import {RegisterPageComponent} from "./register-page/register-page.component";
 import {AuthGuard} from "./shared/services/auth.guard";
+import {ListOfLiteratureComponent} from "./literature/list-of-literature/list-of-literature.component";
+import {MainLiteratureComponent} from "./literature/main-literature/main-literature.component";
 
 export const routes: Routes = [
   {path: '', component: MainLayoutComponent, children: [
@@ -24,7 +26,10 @@ export const routes: Routes = [
           {path: 'exercise/:id', component: ExerciseComponent}
         ]
       },
-      {path: 'literature', component: LiteratureComponent},
+      {path: 'literature', component: MainLiteratureComponent, canActivate: [AuthGuard], children: [
+        ]},
+      {path: 'listOfLiterature', component: ListOfLiteratureComponent, canActivate: [AuthGuard],},
+
     ]},
 
   {path: '**', component: ErrorPageComponent}
